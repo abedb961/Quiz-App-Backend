@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+require_once 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_score'])) {
     $user_id = $_POST['user_id'];
     $quiz_id = $_POST['quiz_id'];
@@ -14,5 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_score'])) {
     } else {
         echo json_encode(['error' => 'Error, Score Failed To Be Submitted.']);
     }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
+    $stmt = $conn->prepare("SELECT * FROM scores WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $scores = [];
+    while ($row = $result->fetch_assoc()) {
+        $scores[] = $row;
+    }
+    echo json_encode($scores);
 }
 ?>

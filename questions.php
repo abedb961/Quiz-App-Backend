@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+require_once 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_question'])) {
     $quiz_id = $_POST['quiz_id'];
     $question = $_POST['question'];
