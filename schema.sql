@@ -1,0 +1,22 @@
+CREATE DATABASE quiz_app;
+USE quiz_app;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+);
+
+CREATE TABLE quizzes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+);
+
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+);
+
+CREATE TABLE scores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+);
