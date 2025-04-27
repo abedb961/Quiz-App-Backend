@@ -4,7 +4,7 @@ include ('db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_quiz'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
-
+    
     $stmt = $conn->prepare("INSERT INTO quizzes (title, description) VALUES (?, ?)");
     $stmt->bind_param("ss", $title, $description);
     $stmt->execute();
