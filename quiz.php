@@ -48,4 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_quiz'])) {
         echo json_encode(['error' => 'Error, Quiz Failed To Be Deleted.']);
     }
 }
+$conn->close();
 ?>

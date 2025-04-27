@@ -59,4 +59,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_question'])) {
         echo json_encode(['error' => 'Error, Question Failed to be Deleted.']);
     }
 }
+$conn->close();
 ?>
