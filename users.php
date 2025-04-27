@@ -2,7 +2,7 @@
 require_once 'db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'register') {
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $_password = $_POST['_password'];
     $sql = "SELECT * FROM users WHERE email = ?";
 
     $stmt = $conn->prepare($sql);
@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         echo json_encode(["error" => "Error, User Already Exists."]);
 
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+        $hashedPassword = password_hash($_password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (email, _password) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $email, $hashedPassword);
         
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $_password = $_POST['_password'];
     $sql = "SELECT * FROM users WHERE email = ?";
 
     $stmt = $conn->prepare($sql);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         echo json_encode(["error" => "Error, User Credentials Are Invalid."]);
     } else {
         $user = $result->fetch_assoc();
-        $storedPassword = $user['password'];
+        $storedPassword = $user['_password'];
         
         if (password_verify($password, $storedPassword)) {
             echo json_encode(["message" => "Login successful!"]);
