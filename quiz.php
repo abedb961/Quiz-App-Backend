@@ -15,4 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_quiz'])) {
         echo json_encode(['error' => 'Error! Failed To Create Quiz.']);
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['get_quizzes'])) {
+    $result = $conn->query("SELECT * FROM quizzes");
+    $quizzes = $result->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($quizzes);
+}
 ?>
