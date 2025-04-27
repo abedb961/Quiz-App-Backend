@@ -35,4 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_quiz'])) {
         echo json_encode(['error' => 'Error, Quiz Failed To Be Updated.']);
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_quiz'])) {
+    $quiz_id = $_POST['quiz_id'];
+
+    $stmt = $conn->prepare("DELETE FROM quizzes WHERE id = ?");
+    $stmt->bind_param("i", $quiz_id);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        echo json_encode(['message' => 'Quiz Deleted Successfully!']);
+    } else {
+        echo json_encode(['error' => 'Error, Quiz Failed To Be Deleted.']);
+    }
+}
 ?>
